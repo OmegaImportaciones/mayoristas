@@ -1,0 +1,102 @@
+/* Foto ampliada del producto */
+
+.viewer {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    background: #050506;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.viewer.is-open { visibility: visible; opacity: 1; pointer-events: auto; }
+
+.viewer-head {
+    display: flex;
+    justify-content: flex-end;
+    padding: calc(10px + env(safe-area-inset-top)) 12px 0;
+}
+
+.viewer-head .icon-button { border-color: var(--line-strong); background: rgba(21, 22, 25, 0.8); }
+
+.viewer-stage {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+    padding: 10px 16px;
+    overflow: hidden;
+}
+
+.viewer-photo {
+    /* Cuadrado: el lado es el menor entre el ancho y el alto disponibles */
+    width: min(100%, 640px, calc(100dvh - 280px));
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-m);
+    background: #f1f2f4;
+    overflow: hidden;
+}
+
+.viewer-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: zoom-in;
+    transition: transform 0.2s ease;
+}
+
+.viewer-photo img.is-zoomed { transform: scale(2.2); cursor: zoom-out; }
+
+.viewer-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.viewer-arrow--prev { left: 12px; }
+
+.viewer-arrow--next { right: 12px; }
+
+.viewer-arrow { background: rgba(21, 22, 25, 0.85); border-color: var(--line-strong); }
+
+.viewer-dots { display: flex; justify-content: center; gap: 8px; min-height: 14px; padding: 4px 0 10px; }
+
+.viewer-dot {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--line-strong);
+}
+
+.viewer-dot.is-on { background: var(--red); }
+
+.viewer-info {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 6px 14px;
+    align-items: center;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 14px 16px calc(18px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+}
+
+.viewer-info .row-name { font-size: 1rem; }
+
+.viewer-info > div:first-child { min-width: 0; }
+
+@media (min-width: 720px) {
+    .viewer-info { border: 1px solid var(--line); border-radius: var(--radius-l) var(--radius-l) 0 0; }
+}

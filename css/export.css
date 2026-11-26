@@ -1,0 +1,89 @@
+/* Ventana "Descargar lista de precios" */
+
+.top-actions { display: flex; gap: 8px; }
+
+.top-actions .button span[aria-hidden] { font-size: 1.05rem; }
+
+.export {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    display: grid;
+    place-items: end center;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.export.is-open { visibility: visible; pointer-events: auto; }
+
+.export.is-open .sheet-backdrop { opacity: 1; }
+
+.export-panel {
+    position: relative;
+    width: min(100%, 520px);
+    max-height: 92vh;
+    overflow-y: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l) var(--radius-l) 0 0;
+    background: var(--surface);
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.export.is-open .export-panel { transform: none; opacity: 1; }
+
+.export-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 18px calc(20px + env(safe-area-inset-bottom));
+}
+
+.export-scope { display: grid; gap: 8px; margin: 0 0 6px; padding: 0; border: 0; }
+
+.radio { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+
+.radio input { width: 20px; height: 20px; accent-color: var(--red); }
+
+.muted { color: var(--ink-soft); font-weight: 500; }
+
+.export-formats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+
+.format {
+    display: grid;
+    gap: 6px;
+    align-content: start;
+    padding: 16px 14px;
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius-m);
+    background: var(--surface-2);
+    text-align: left;
+}
+
+.format strong { font-size: 1.15rem; color: var(--ink); }
+
+.format span { color: var(--ink-soft); font-size: 0.82rem; line-height: 1.35; }
+
+.format:hover { border-color: var(--red); }
+
+.format:disabled { opacity: 0.5; cursor: wait; }
+
+.export-status { min-height: 1.2em; margin: 4px 0 0; font-weight: 700; color: var(--ok); }
+
+.export-status.is-error { color: var(--focus); }
+
+.export-note { margin: 0; color: var(--ink-soft); font-size: 0.8rem; }
+
+@media (min-width: 720px) {
+    .export { place-items: center; }
+    .export-panel { border-radius: var(--radius-l); }
+}
+
+@media (max-width: 359px) {
+    .export-formats { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 419px) {
+    .hide-sm { display: none; }
+}

@@ -11,6 +11,11 @@ window.MAYORISTAS = {
 
     WHATSAPP: '59164216262',
 
+    // Datos que se imprimen en el PDF y el Excel
+    WHATSAPP_VISIBLE: '+591 642 16262',
+
+    DIRECCION: 'Av. Buenos Aires, Galería Las Vegas (Los Galpones), La Paz',
+
     // Carpeta data/ del sitio principal (relativa a este sitio)
     DATOS: '../Omega/data/',
 

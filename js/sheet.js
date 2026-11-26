@@ -24,7 +24,7 @@
                 </div>
                 <div class="stepper">
                     <button type="button" data-step="-1" data-id="${l.product.id}" aria-label="${l.qty <= min ? 'Quitar' : 'Restar uno'}">${l.qty <= min ? '✕' : '−'}</button>
-                    <output>${l.qty}</output>
+                    ${window.MList.qtyInput(l.product, l.qty)}
                     <button type="button" data-step="1" data-id="${l.product.id}" aria-label="Sumar uno">+</button>
                 </div>
                 <strong class="sheet-sub">${M.money(l.subtotal)}</strong>

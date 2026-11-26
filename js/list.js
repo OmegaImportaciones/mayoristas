@@ -40,12 +40,12 @@
 
     function visible() {
 
-        const words = M.normalize(state.query).split(/\s+/).filter(Boolean);
+        const words = window.MSearch.words(state.query);
 
         let list = all.filter(p => {
             if (state.filter === 'sas' && !p.sas) return false;
             if (state.filter !== 'todos' && state.filter !== 'sas' && p.category !== state.filter) return false;
-            return words.every(w => p.search.includes(w));
+            return window.MSearch.matches(p.search, words);
         });
 
         const sorters = {
@@ -61,6 +61,14 @@
 
     // ---------- Filas ----------
 
+    // Cantidad escribible (la maneja js/qty.js)
+    function qtyInput(p, qty) {
+
+        return `<input class="qty-input" type="number" inputmode="numeric" pattern="[0-9]*" min="0" max="${window.MData.maxQty(p)}" value="${qty}" data-qty="${p.id}" aria-label="Cantidad de ${M.esc(p.name)}">`;
+
+    }
+
+
     function control(p) {
 
         const qty = window.MOrder.qtyOf(p.id);
@@ -74,7 +82,7 @@
         return `
             <div class="stepper" aria-label="Cantidad de ${M.esc(p.name)}">
                 <button type="button" data-step="-1" data-id="${p.id}" aria-label="${qty <= min ? 'Quitar' : 'Restar uno'}">${qty <= min ? '✕' : '−'}</button>
-                <output>${qty}</output>
+                ${qtyInput(p, qty)}
                 <button type="button" data-step="1" data-id="${p.id}" aria-label="Sumar uno">+</button>
             </div>`;
 
@@ -83,15 +91,18 @@
 
     function row(p) {
 
-        const save = p.retail > p.price ? Math.round((1 - p.price / p.retail) * 100) : 0;
-
         return `
             <li class="row" data-id="${p.id}">
-                <div class="thumb">${p.image ? `<img src="${M.esc(p.image)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : ''}</div>
+                ${p.image
+                    ? `<button type="button" class="thumb thumb--zoom" data-zoom="${p.id}" aria-label="Ver foto de ${M.esc(p.name)}">
+                        <img src="${M.esc(p.image)}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.remove('thumb--zoom');this.remove()">
+                        ${p.images.length > 1 ? `<span class="thumb-count">${p.images.length}</span>` : ''}
+                       </button>`
+                    : '<div class="thumb"></div>'}
                 <div class="row-info">
                     <p class="row-name">${M.esc(p.name)}</p>
                     <p class="row-meta">${p.sas ? `<span class="sas">SAS${p.model ? ' · ' + M.esc(p.model) : ''}</span>` : ''}<span>Cód. ${M.esc(p.code)}</span></p>
-                    <p class="row-price"><strong>${M.money(p.price)}</strong> c/u${save ? `<span class="row-save">−${save}%</span>` : ''}</p>
+                    <p class="row-price"><strong>${M.money(p.price)}</strong> c/u</p>
                 </div>
                 <div class="row-action">${control(p)}</div>
             </li>`;
@@ -153,6 +164,13 @@
 
         $('list').addEventListener('click', e => {
 
+            const zoom = e.target.closest('[data-zoom]');
+
+            if (zoom) {
+                window.MViewer.open(all.find(x => x.id === zoom.dataset.zoom));
+                return;
+            }
+
             const add = e.target.closest('[data-add]');
 
             const step = e.target.closest('[data-step]');
@@ -187,6 +205,29 @@
     }
 
 
-    window.MList = { mount, refreshRow };
+        // Para descargar: todo o solo lo que se está viendo
+    function current() {
+
+        const chip = document.querySelector(`#chips [data-filter="${CSS.escape(state.filter)}"]`);
+
+        const parts = [];
+
+        if (state.filter !== 'todos') parts.push(chip ? chip.textContent : state.filter);
+
+        if (state.query.trim()) parts.push(`"${state.query.trim()}"`);
+
+        return { all: all.slice(), visible: visible(), label: parts.join(' · ') };
+
+    }
+
+
+    function find(id) {
+
+        return all.find(x => x.id === String(id));
+
+    }
+
+
+    window.MList = { mount, refreshRow, control, qtyInput, find, current };
 
 })();

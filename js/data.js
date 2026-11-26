@@ -112,11 +112,11 @@
                     model: parts ? parts.model : '',
                     sas,
                     category: M.categoryOf(p),
+                    images: images(p),
                     image: images(p)[0] || '',
-                    retail: Number(p.precio1) || 0,
                     price: item.p,
                     stock: Number(item.s) || 0,
-                    search: M.normalize(`${name} ${p.codigo} ${parts ? parts.model : ''} ${sas ? 'sas' : ''}`)
+                    search: window.MSearch.normalize(`${p.producto} ${name} ${p.codigo} ${parts ? parts.model : ''} ${sas ? 'sas' : ''}`)
                 };
             });
 

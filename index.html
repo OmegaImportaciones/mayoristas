@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="./css/main.css?v=2">
+    <link rel="stylesheet" href="./css/main.css?v=6">
 </head>
 
 <body>
@@ -46,11 +46,16 @@
             <div class="top-brand">
                 <img src="./img/omega-icon.svg" alt="" width="34" height="34">
                 <div>
-                    <strong>Omega Importaciones</strong>
+                    <strong>Omega<span class="hide-sm"> Importaciones</span></strong>
                     <span>Mayoristas</span>
                 </div>
             </div>
-            <button type="button" class="button button--ghost button--small" id="logout">Salir</button>
+            <div class="top-actions">
+                <button type="button" class="button button--red button--small" id="exportOpen" aria-label="Descargar lista de precios en PDF o Excel">
+                    <span aria-hidden="true">⤓</span><span>Lista</span>
+                </button>
+                <button type="button" class="button button--ghost button--small" id="logout">Salir</button>
+            </div>
         </header>
 
         <p class="info" id="info"></p>
@@ -102,6 +107,62 @@
             </section>
         </div>
 
+        <!-- Descargar lista de precios -->
+        <div class="export" id="export" aria-hidden="true">
+            <div class="sheet-backdrop" data-xclose></div>
+            <section class="export-panel" role="dialog" aria-modal="true" aria-labelledby="exportTitle">
+                <header class="sheet-head">
+                    <h2 id="exportTitle">Descargar lista de precios</h2>
+                    <button type="button" class="icon-button" id="exportClose" data-xclose aria-label="Cerrar">✕</button>
+                </header>
+                <div class="export-body">
+                    <fieldset class="export-scope">
+                        <legend class="sheet-label">Qué productos</legend>
+                        <label class="radio"><input type="radio" name="exportScope" value="all" checked><span>Toda la lista (<span id="exportAllCount">0</span>)</span></label>
+                        <label class="radio" id="exportViewRow" hidden><input type="radio" name="exportScope" value="view"> <span id="exportViewLabel"></span></label>
+                    </fieldset>
+
+                    <label class="sheet-label" for="exportBuyer">Tu nombre o negocio <span class="muted">(opcional, sale en el archivo)</span></label>
+                    <input id="exportBuyer" class="field" type="text" autocomplete="organization" placeholder="Ej. Tienda El Rayo">
+
+                    <div class="export-formats">
+                        <button type="button" class="format" data-export="pdf">
+                            <strong>PDF</strong>
+                            <span>Para ver, imprimir o enviar. Ordenado por secciones.</span>
+                        </button>
+                        <button type="button" class="format" data-export="excel">
+                            <strong>Excel</strong>
+                            <span>Para armar tu pedido: escribe cantidades y se calcula el total.</span>
+                        </button>
+                    </div>
+
+                    <p class="export-status" id="exportStatus" role="status"></p>
+                    <p class="export-note">Los precios son los de la fecha de actualización. Antes de pedir, revisa que tu lista sea la más reciente.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Foto ampliada -->
+        <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Foto del producto" aria-hidden="true">
+            <div class="viewer-head">
+                <button type="button" class="icon-button" id="viewerClose" data-vclose aria-label="Cerrar">✕</button>
+            </div>
+            <div class="viewer-stage" id="viewerStage">
+                <button type="button" class="icon-button viewer-arrow viewer-arrow--prev" id="viewerPrev" aria-label="Foto anterior">‹</button>
+                <div class="viewer-photo"><img id="viewerImg" alt=""></div>
+                <button type="button" class="icon-button viewer-arrow viewer-arrow--next" id="viewerNext" aria-label="Foto siguiente">›</button>
+            </div>
+            <div class="viewer-dots" id="viewerDots"></div>
+            <div class="viewer-info">
+                <div>
+                    <p class="row-name" id="viewerName"></p>
+                    <p class="row-meta" id="viewerMeta"></p>
+                    <p class="row-price" id="viewerPrice"></p>
+                </div>
+                <div id="viewerAction"></div>
+            </div>
+        </div>
+
     </div>
 
     <p class="loading" id="loading">Cargando…</p>
@@ -110,11 +171,20 @@
     <script src="./js/config.js"></script>
     <script src="./js/vault.js"></script>
     <script src="./js/utils.js"></script>
+    <script src="./js/search.js"></script>
     <script src="./js/data.js"></script>
     <script src="./js/order.js"></script>
     <script src="./js/gate.js"></script>
     <script src="./js/list.js"></script>
     <script src="./js/sheet.js"></script>
+    <script src="./js/viewer.js"></script>
+    <script src="./js/toast.js"></script>
+    <script src="./js/qty.js"></script>
+    <script src="./js/export/sections.js"></script>
+    <script src="./js/export/prices.js"></script>
+    <script src="./js/export/pdf.js"></script>
+    <script src="./js/export/excel.js"></script>
+    <script src="./js/export/menu.js"></script>
     <script src="./js/app.js"></script>
 
 </body>
