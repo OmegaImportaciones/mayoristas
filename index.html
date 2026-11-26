@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Mayoristas · Omega Importaciones</title>
+
+    <!-- Que no aparezca en Google ni en vistas previas -->
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="no-referrer">
+    <meta name="theme-color" content="#0b0b0c">
+
+    <link rel="icon" href="./img/omega-icon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="./img/omega-icon-180.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/main.css?v=2">
+</head>
+
+<body>
+
+    <!-- ACCESO (se muestra sin sesión) -->
+    <section class="gate" id="gate" hidden>
+        <form class="gate-card" id="gateForm" novalidate>
+            <img class="gate-logo" src="./img/omega-icon.svg" alt="" width="56" height="56">
+            <p class="gate-brand">Omega Importaciones</p>
+            <h1>Precios para mayoristas</h1>
+            <p class="gate-text">Ingresa la contraseña que te compartimos.</p>
+            <label class="visually-hidden" for="gatePass">Contraseña</label>
+            <input id="gatePass" class="field" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" placeholder="Contraseña">
+            <p class="gate-error" id="gateError" role="alert" hidden></p>
+            <button type="submit" class="button button--red" id="gateSubmit">Entrar</button>
+            <a class="gate-link" id="gateAccess" target="_blank" rel="noopener">¿Aún no eres mayorista? Escríbenos</a>
+            <a class="gate-link" id="gateStore">Ir a la tienda (compras por unidad)</a>
+        </form>
+    </section>
+
+    <!-- LISTA (se muestra con sesión) -->
+    <div class="app" id="app" hidden>
+
+        <header class="top">
+            <div class="top-brand">
+                <img src="./img/omega-icon.svg" alt="" width="34" height="34">
+                <div>
+                    <strong>Omega Importaciones</strong>
+                    <span>Mayoristas</span>
+                </div>
+            </div>
+            <button type="button" class="button button--ghost button--small" id="logout">Salir</button>
+        </header>
+
+        <p class="info" id="info"></p>
+
+        <div class="tools">
+            <label class="visually-hidden" for="search">Buscar</label>
+            <input id="search" class="field field--search" type="search" placeholder="Buscar por nombre o código" autocomplete="off" enterkeyhint="search">
+            <div class="tools-row">
+                <div class="chips" id="chips" role="tablist" aria-label="Filtrar"></div>
+                <label class="visually-hidden" for="sort">Ordenar</label>
+                <select id="sort" class="field field--select">
+                    <option value="nombre">Nombre A-Z</option>
+                    <option value="precio-asc">Precio menor</option>
+                    <option value="precio-desc">Precio mayor</option>
+                </select>
+            </div>
+        </div>
+
+        <main>
+            <p class="count" id="count" aria-live="polite"></p>
+            <ul class="list" id="list"></ul>
+            <button type="button" class="button button--ghost button--block" id="more" hidden>Mostrar más</button>
+            <p class="empty" id="empty" hidden>No encontramos productos con esa búsqueda.</p>
+        </main>
+
+        <!-- Barra del pedido -->
+        <button type="button" class="order-bar" id="orderBar" hidden>
+            <span class="order-bar-count" id="orderBarCount">0</span>
+            <span>Ver pedido</span>
+            <strong id="orderBarTotal">Bs 0</strong>
+        </button>
+
+        <!-- Panel del pedido -->
+        <div class="sheet" id="sheet" aria-hidden="true">
+            <div class="sheet-backdrop" data-close></div>
+            <section class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+                <header class="sheet-head">
+                    <h2 id="sheetTitle">Pedido mayorista</h2>
+                    <button type="button" class="icon-button" data-close aria-label="Cerrar">✕</button>
+                </header>
+                <ul class="sheet-lines" id="sheetLines"></ul>
+                <footer class="sheet-foot">
+                    <label class="sheet-label" for="buyer">Tu nombre o negocio</label>
+                    <input id="buyer" class="field" type="text" autocomplete="organization" placeholder="Ej. Tienda El Rayo">
+                    <div class="sheet-total"><span>Total</span><strong id="sheetTotal">Bs 0</strong></div>
+                    <a class="button button--whatsapp button--block" id="send" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a>
+                    <button type="button" class="text-button" id="clear">Vaciar pedido</button>
+                </footer>
+            </section>
+        </div>
+
+    </div>
+
+    <p class="loading" id="loading">Cargando…</p>
+
+    <!-- Módulos (el orden importa) -->
+    <script src="./js/config.js"></script>
+    <script src="./js/vault.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/order.js"></script>
+    <script src="./js/gate.js"></script>
+    <script src="./js/list.js"></script>
+    <script src="./js/sheet.js"></script>
+    <script src="./js/app.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,199 @@
+/* Cabecera, herramientas y filas */
+
+.app { max-width: var(--max); margin: 0 auto; padding-bottom: 110px; }
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px var(--gutter);
+    border-bottom: 1px solid var(--line);
+}
+
+.top-brand { display: flex; align-items: center; gap: 10px; }
+
+.top-brand div { display: grid; line-height: 1.15; }
+
+.top-brand strong { font-size: 0.95rem; }
+
+.top-brand span { color: var(--red); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+
+.info {
+    margin: 0;
+    padding: 10px var(--gutter);
+    border-bottom: 1px solid rgba(37, 182, 96, 0.3);
+    background: rgba(37, 182, 96, 0.1);
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+}
+
+.info strong { color: var(--ok); }
+
+/* ---------- Buscador y filtros ---------- */
+
+.tools {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px var(--gutter);
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+}
+
+.field--search { padding-left: 16px; }
+
+.tools-row { display: flex; gap: 10px; align-items: center; min-width: 0; }
+
+.chips {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar { display: none; }
+
+.chip {
+    flex: none;
+    min-height: 38px;
+    padding: 0 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--pill);
+    background: transparent;
+    font-size: 0.88rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.chip.is-on { border-color: var(--red); background: var(--red); color: #fff; }
+
+.field--select { flex: none; width: auto; min-height: 38px; padding: 0 10px; font-size: 0.88rem; border-radius: var(--pill); }
+
+/* ---------- Lista ---------- */
+
+main { padding: 0 var(--gutter); }
+
+.count { margin: 12px 0 4px; color: var(--ink-soft); font-size: 0.85rem; }
+
+.list { list-style: none; margin: 0; padding: 0; }
+
+.row {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-s);
+    background: #f1f2f4;
+    overflow: hidden;
+}
+
+.thumb img { width: 100%; height: 100%; object-fit: contain; }
+
+.row-info { min-width: 0; }
+
+.row-name { margin: 0; font-weight: 700; font-size: 0.95rem; line-height: 1.25; }
+
+.row-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    margin: 3px 0 0;
+    color: var(--ink-soft);
+    font-size: 0.78rem;
+}
+
+.row-meta .sas { color: var(--red); font-weight: 800; }
+
+.row-price { margin: 4px 0 0; color: var(--ink-soft); font-size: 0.85rem; }
+
+.row-price strong { color: var(--ink); font-size: 1.05rem; }
+
+.row-save {
+    margin-left: 8px;
+    padding: 1px 6px;
+    border-radius: var(--radius-s);
+    background: rgba(37, 182, 96, 0.14);
+    color: var(--ok);
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.add {
+    min-width: 64px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: var(--pill);
+    background: var(--red);
+    color: #fff;
+    font-weight: 800;
+}
+
+.stepper {
+    display: inline-flex;
+    align-items: center;
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--pill);
+}
+
+.stepper button {
+    width: 40px;
+    height: 42px;
+    border: 0;
+    background: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.stepper output { min-width: 26px; text-align: center; font-weight: 800; }
+
+#more { margin: 18px 0 0; }
+
+.empty { margin: 32px 0; text-align: center; color: var(--ink-soft); }
+
+/* ---------- Barra del pedido ---------- */
+
+.order-bar {
+    position: fixed;
+    left: 50%;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    z-index: 20;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: min(calc(100% - 2 * var(--gutter)), 520px);
+    min-height: 56px;
+    padding: 0 18px 0 8px;
+    border: 0;
+    border-radius: var(--pill);
+    background: var(--red);
+    color: #fff;
+    font-weight: 800;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.order-bar span:nth-child(2) { flex: 1; text-align: left; }
+
+.order-bar-count {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--red);
+}

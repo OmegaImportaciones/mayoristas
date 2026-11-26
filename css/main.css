@@ -1,0 +1,6 @@
+/* Orden: tokens -> base -> pantallas */
+@import url("tokens.css");
+@import url("base.css");
+@import url("gate.css");
+@import url("list.css");
+@import url("sheet.css");

@@ -1,0 +1,100 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+html.no-scroll { overflow: hidden; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.45;
+}
+
+[hidden] { display: none !important; }
+
+button, input, select { font: inherit; color: inherit; }
+
+button { cursor: pointer; }
+
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.visually-hidden {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- Botones ---------- */
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 50px;
+    padding: 0 22px;
+    border: 1.5px solid transparent;
+    border-radius: var(--pill);
+    background: transparent;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.button--red { background: var(--red); color: #fff; }
+
+.button--red:hover { background: var(--red-hover); }
+
+.button--red:disabled { opacity: 0.7; cursor: wait; }
+
+.button--ghost { border-color: var(--line-strong); }
+
+.button--whatsapp { background: var(--whatsapp); color: var(--whatsapp-ink); }
+
+.button--whatsapp.is-disabled { opacity: 0.4; pointer-events: none; }
+
+.button--block { width: 100%; }
+
+.button--small { min-height: 40px; padding: 0 16px; font-size: 0.9rem; }
+
+.text-button {
+    align-self: center;
+    padding: 6px;
+    border: 0;
+    background: none;
+    color: var(--ink-soft);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.icon-button {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    font-size: 1rem;
+}
+
+/* ---------- Campos ---------- */
+
+.field {
+    width: 100%;
+    min-height: 50px;
+    padding: 0 16px;
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius-m);
+    background: var(--surface);
+    font-size: 1rem;
+}
+
+.field:focus { outline: none; border-color: var(--red); }
+
+.loading { margin: 30vh 0 0; text-align: center; color: var(--ink-soft); }

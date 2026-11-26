@@ -1,0 +1,30 @@
+/* Identidad Omega x SAS: negro / rojo (igual que el sitio principal) */
+
+:root {
+    --bg: #0b0b0c;
+    --surface: #151619;
+    --surface-2: #1f2125;
+    --ink: #f4f4f5;
+    --ink-soft: #a1a5ab;
+    --line: #2a2d32;
+    --line-strong: #3a3e45;
+
+    --red: #e3242b;
+    --red-hover: #f0353c;
+    --red-soft: rgba(227, 36, 43, 0.14);
+
+    --whatsapp: #25b660;
+    --whatsapp-ink: #06150c;
+    --ok: #25b660;
+    --focus: #ff6b70;
+
+    --radius-s: 8px;
+    --radius-m: 12px;
+    --radius-l: 20px;
+    --pill: 999px;
+
+    --gutter: 16px;
+    --max: 860px;
+
+    --font: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+}

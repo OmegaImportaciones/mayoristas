@@ -1,0 +1,85 @@
+/* Panel del pedido (hoja inferior en móvil, centrado en escritorio) */
+
+.sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    place-items: end center;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.sheet.is-open { visibility: visible; pointer-events: auto; }
+
+.sheet-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.sheet.is-open .sheet-backdrop { opacity: 1; }
+
+.sheet-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 560px);
+    max-height: 90vh;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l) var(--radius-l) 0 0;
+    background: var(--surface);
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.sheet.is-open .sheet-panel { transform: none; opacity: 1; }
+
+.sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--line);
+}
+
+.sheet-head h2 { margin: 0; font-size: 1.2rem; }
+
+.sheet-lines { list-style: none; margin: 0; padding: 0 18px; overflow-y: auto; }
+
+.sheet-line {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 12px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.sheet-line > div:first-child { grid-column: 1 / -1; }
+
+.sheet-sub { justify-self: end; }
+
+.sheet-foot {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 18px calc(16px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+}
+
+.sheet-label { color: var(--ink-soft); font-size: 0.85rem; font-weight: 700; }
+
+.sheet-total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 4px; }
+
+.sheet-total strong { font-size: 1.5rem; }
+
+@media (min-width: 720px) {
+    .sheet { place-items: center; }
+    .sheet-panel { border-radius: var(--radius-l); }
+}
+
+.sheet-line .stepper { justify-self: start; }
